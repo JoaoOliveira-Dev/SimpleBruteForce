@@ -7,9 +7,11 @@ username = input("Enter the username: ")
 error = input("Enter the login failed string: ")
 
 z = """
+
     [*]-------------------------[*]
         Verificando servidor...
     [*]-------------------------[*]
+
 """
 
 for c in z:
@@ -23,7 +25,7 @@ try:
         for password in passwords:
             count += 1
             password = password.strip()
-            print("\033[1;31m"+"[+] tentativa número [" + str(count) + "] a senha: " + password)
+            print("\033[1;31m"+"[-] tentativa número [" + str(count) + "] LOGIN: " + username + " / SENHA: " + password)
             data_dict = {"user": username, "password": password}
             
             try:
