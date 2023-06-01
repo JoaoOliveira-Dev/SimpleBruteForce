@@ -4,7 +4,7 @@ import time
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor
 
-url = "https://www.gtfoods.com.br/wp-login.php"
+url = input("Enter the username: ")
 username = input("Enter the username: ")
 error = input("Enter the login failed string: ")
 
