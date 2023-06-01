@@ -4,7 +4,7 @@ import time
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor
 
-url = input("Enter the username: ")
+url = input("Enter the url target: ")
 username = input("Enter the username: ")
 error = input("Enter the login failed string: ")
 
