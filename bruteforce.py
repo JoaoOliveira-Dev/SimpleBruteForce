@@ -51,4 +51,4 @@ try:
                     break
 
 except:
-    print("\033[1;31m"+"[-] erro na conexão com o servidor")
+    print("\033[1;31m"+"[-] Brute Force Cancelado")
